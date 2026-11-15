@@ -1,2 +1,0 @@
-   Compiling simulador-mt v0.1.0 (/workspace/Proyecto-3-Teoria-de-la-computacion)
-    Finished `release` profile [optimized] target(s) in 4.34s
