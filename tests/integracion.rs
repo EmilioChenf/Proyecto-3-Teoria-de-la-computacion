@@ -47,9 +47,9 @@ fn reconocedora_exhaustiva_hasta_ocho() {
     }
 }
 #[test]
-fn alteradora_exhaustiva_hasta_siete() {
+fn alteradora_exhaustiva_hasta_ocho() {
     let maquina = cargar_maquina("alteradora");
-    for cadena in palabras(&['a', 'b'], 7) {
+    for cadena in palabras(&['a', 'b'], 8) {
         let resultado = maquina.simular(&cadena, 10000).unwrap();
         if cadena.is_empty() {
             assert_eq!(resultado.terminacion, Terminacion::Rechazada);

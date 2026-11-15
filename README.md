@@ -54,7 +54,7 @@ cargo test --locked
 cargo build --release --locked
 ```
 
-La suite contiene una prueba unitaria y diez de integración. Incluye blancos YAML, movimientos L/R/S, posiciones negativas, memoria auxiliar, validación, aceptación inicial, rechazo sin transición, límite de pasos, independencia entre entradas y exportación íntegra de trazas. Compara exhaustivamente 9.841 cadenas reconocedoras hasta longitud 8 y 255 cadenas alteradoras hasta longitud 7, incluida la vacía, con oráculos independientes del motor.
+En Linux, la suite contiene una prueba unitaria y dieciséis de integración. Incluye blancos YAML, movimientos L/R/S, posiciones negativas, memoria auxiliar, validación, aceptación inicial, rechazo sin transición, límite de pasos, independencia entre entradas y exportación íntegra de trazas. También comprueba una máquina independiente paso a paso, entradas mayores y protección del archivo de configuración al exportar. Compara exhaustivamente 9.841 cadenas reconocedoras hasta longitud 8 y 511 cadenas alteradoras hasta longitud 8, incluida la vacía, con oráculos independientes del motor.
 
 Los scripts ejecutan las verificaciones anteriores y ambas máquinas, y guardan registros y trazas regenerables en `target/verificacion/`, fuera del seguimiento de Git:
 
@@ -100,7 +100,7 @@ New-Item -ItemType Directory -Force target/trazas | Out-Null
 .\target\release\simulador-mt.exe maquinas/alteradora.yaml --traza target/trazas/alteradora.txt
 ```
 
-`--traza ARCHIVO` escribe el mismo texto completo que aparece en consola; el directorio destino debe existir. `--ayuda` muestra la sintaxis. Errores de configuración, argumentos, archivos o símbolos de entrada producen código de salida 1. Aceptación, rechazo e inconclusión son resultados de simulación y producen código 0; se distinguen en el texto.
+`--traza ARCHIVO` escribe el mismo texto completo que aparece en consola; el directorio destino debe existir. La traza no puede ser el mismo archivo que la configuración, ni mediante otra ruta o enlace físico. Si una tubería de salida se cierra, se informa un error de escritura sin panic. `--ayuda` muestra la sintaxis. Errores de configuración, argumentos, archivos o símbolos de entrada producen código de salida 1. Aceptación, rechazo e inconclusión son resultados de simulación y producen código 0; se distinguen en el texto.
 
 ## Configuración YAML
 

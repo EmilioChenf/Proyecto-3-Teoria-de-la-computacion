@@ -1,14 +1,14 @@
 use simulador_mt::{configuracion::Maquina, presentacion::representar};
+use std::io::Write;
 fn ejecutar() -> Result<(), String> {
     let mut argumentos = std::env::args().skip(1);
     let ruta = argumentos.next().ok_or(
         "Uso: simulador-mt ARCHIVO.yaml [--limite N] [--entrada CADENA] [--traza ARCHIVO]",
     )?;
     if ruta == "--help" || ruta == "--ayuda" {
-        println!(
-            "Uso: simulador-mt ARCHIVO.yaml [--limite N] [--entrada CADENA] [--traza ARCHIVO]\nSin --entrada se ejecutan todas las simulation_strings. La traza siempre es completa."
+        return escribir_salida(
+            "Uso: simulador-mt ARCHIVO.yaml [--limite N] [--entrada CADENA] [--traza ARCHIVO]\nSin --entrada se ejecutan todas las simulation_strings. La traza siempre es completa.\n",
         );
-        return Ok(());
     }
     let mut limite = 100_000;
     let mut entrada = None;
@@ -29,6 +29,20 @@ fn ejecutar() -> Result<(), String> {
         }
     }
     let maquina = Maquina::cargar(&ruta)?;
+    if let Some(destino) = &archivo {
+        match same_file::is_same_file(&ruta, destino) {
+            Ok(true) => {
+                return Err("La configuración y la traza no pueden ser el mismo archivo".into());
+            }
+            Ok(false) => {}
+            Err(error) if error.kind() == std::io::ErrorKind::NotFound => {}
+            Err(error) => {
+                return Err(format!(
+                    "No se pudo comprobar el destino de la traza: {error}"
+                ));
+            }
+        }
+    }
     let cadenas = entrada
         .map(|valor| vec![valor])
         .unwrap_or_else(|| maquina.configuracion.cadenas.clone());
@@ -47,15 +61,21 @@ fn ejecutar() -> Result<(), String> {
         std::fs::write(&ruta, &salida)
             .map_err(|error| format!("No se pudo exportar {ruta}: {error}"))?;
     }
-    print!("{salida}");
+    escribir_salida(&salida)?;
     if invalida {
         return Err("Se encontraron cadenas inválidas".into());
     }
     Ok(())
 }
+fn escribir_salida(texto: &str) -> Result<(), String> {
+    std::io::stdout()
+        .lock()
+        .write_all(texto.as_bytes())
+        .map_err(|error| format!("No se pudo escribir en la salida estándar: {error}"))
+}
 fn main() {
     if let Err(error) = ejecutar() {
-        eprintln!("Error: {error}");
+        let _ = writeln!(std::io::stderr().lock(), "Error: {error}");
         std::process::exit(1);
     }
 }

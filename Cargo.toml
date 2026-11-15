@@ -6,3 +6,4 @@ edition = "2024"
 [dependencies]
 serde = { version = "1", features = ["derive"] }
 serde-saphyr = "2.1.1"
+same-file = "1.0.6"
