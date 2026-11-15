@@ -1,0 +1,9 @@
+Entrada: "abc" (longitud: 3 caracteres)
+Paso 0 | estado=inicio | memoria=□ | cabezal=0
+ID: -1:□ ⟨inicio,□⟩ 0:'a' 1:'b' 2:'c' 3:□
+Paso 1 | estado=buscar_b | memoria=□ | cabezal=1
+Aplicada: δ([inicio,□],'a') = ([buscar_b,□],'X',R)
+ID: -1:□ 0:'X' ⟨buscar_b,□⟩ 1:'b' 2:'c' 3:□
+Resultado: Inconclusa; motivo: límite de pasos alcanzado / resultado inconcluso
+Cinta final útil (solo sin blancos exteriores): "Xbc"
+Transiciones ejecutadas: 1

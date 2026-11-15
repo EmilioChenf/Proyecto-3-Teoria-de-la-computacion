@@ -247,6 +247,9 @@ fn cli_exporta_trazas_completas_y_distingue_errores() {
         .unwrap();
     assert!(salida.status.success());
     assert_eq!(salida.stdout, std::fs::read(&ruta).unwrap());
+    let texto = String::from_utf8(salida.stdout.clone()).unwrap();
+    assert!(texto.lines().all(|linea| linea == linea.trim_end()));
+    assert!(!texto.ends_with("\n\n"));
     std::fs::remove_file(ruta).unwrap();
     let salida = std::process::Command::new(env!("CARGO_BIN_EXE_simulador-mt"))
         .args(["maquinas/reconocedora.yaml", "--entrada", "#"])

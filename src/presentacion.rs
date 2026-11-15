@@ -35,9 +35,10 @@ pub fn representar(resultado: &Resultado) -> String {
             }
             write!(texto, "{posicion}:{} ", actual.cinta.en(posicion)).unwrap();
         }
+        texto.pop(); // Retirar el separador final de la última celda.
         texto.push('\n');
     }
     let ultima = resultado.traza.last().unwrap();
-    writeln!(texto, "Resultado: {:?}; motivo: {}\nCinta final útil (solo sin blancos exteriores): {:?}\nTransiciones ejecutadas: {}\n", resultado.terminacion, resultado.motivo, ultima.cinta.contenido_util(), ultima.paso).unwrap();
+    writeln!(texto, "Resultado: {:?}; motivo: {}\nCinta final útil (solo sin blancos exteriores): {:?}\nTransiciones ejecutadas: {}", resultado.terminacion, resultado.motivo, ultima.cinta.contenido_util(), ultima.paso).unwrap();
     texto
 }

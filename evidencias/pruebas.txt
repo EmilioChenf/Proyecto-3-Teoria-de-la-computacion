@@ -1,0 +1,37 @@
+   Compiling simulador-mt v0.1.0 (/workspace/Proyecto-3-Teoria-de-la-computacion)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.98s
+     Running unittests src/lib.rs (target/debug/build/simulador-mt/3f2e57af9e815783/out/simulador_mt-3f2e57af9e815783)
+
+running 1 test
+test cinta::pruebas::conserva_blancos_internos_y_extiende_ambos_lados ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/build/simulador-mt/8470bdc5d77bd2a7/out/simulador_mt-8470bdc5d77bd2a7)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/integracion.rs (target/debug/build/simulador-mt/3af84b05a532ce05/out/integracion-3af84b05a532ce05)
+
+running 10 tests
+test blanco_vacio_yaml_y_unicode ... ok
+test campos_blancos_vacios_son_obligatorios_y_no_comodines ... ok
+test aceptacion_inicial_rechazo_limite_y_entrada_invalida ... ok
+test errores_de_configuracion ... ok
+test ejemplos_adicionales_reconocedores_y_separador_no_es_blanco ... ok
+test cli_exporta_trazas_completas_y_distingue_errores ... ok
+test memoria_diferencia_transiciones_y_null_borra_registro ... ok
+test ocho_demostraciones_e_independencia ... ok
+test reconocedora_exhaustiva_hasta_ocho ... ok
+test alteradora_exhaustiva_hasta_siete ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.16s
+
+   Doc-tests simulador_mt
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
