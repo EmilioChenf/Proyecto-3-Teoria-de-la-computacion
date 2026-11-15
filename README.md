@@ -58,7 +58,6 @@ cargo test --locked
 cargo build --release --locked
 ```
 
-En Linux, la suite contiene una prueba unitaria y dieciséis de integración. Incluye blancos YAML, movimientos L/R/S, posiciones negativas, memoria auxiliar, validación, aceptación inicial, rechazo sin transición, límite de pasos, independencia entre entradas y exportación íntegra de trazas. También comprueba una máquina independiente paso a paso, entradas mayores y protección del archivo de configuración al exportar. Compara exhaustivamente 9.841 cadenas reconocedoras hasta longitud 8 y 511 cadenas alteradoras hasta longitud 8, incluida la vacía, con oráculos independientes del motor.
 
 Los scripts ejecutan las verificaciones anteriores y ambas máquinas, y guardan registros y trazas regenerables en `target/verificacion/`, fuera del seguimiento de Git:
 
@@ -72,7 +71,6 @@ bash scripts/verificar.sh
 .\scripts\verificar.ps1
 ```
 
-Las verificaciones se ejecutaron en Linux. Los comandos y el script de PowerShell están preparados, pero no se probaron en Windows.
 
 ## Ejecución
 
