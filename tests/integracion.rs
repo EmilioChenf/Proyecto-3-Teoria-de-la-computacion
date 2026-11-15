@@ -139,3 +139,22 @@ fn reconocedora_exhaustiva_hasta_ocho() {
         );
     }
 }
+fn alteradora_exhaustiva_hasta_siete() {
+    let maquina = cargar_maquina("alteradora");
+    for cadena in palabras(&['a', 'b'], 7) {
+        let resultado = maquina.simular(&cadena, 10000).unwrap();
+        if cadena.is_empty() {
+            assert_eq!(resultado.terminacion, Terminacion::Rechazada);
+            continue;
+        }
+        assert_eq!(resultado.terminacion, Terminacion::Aceptada, "{cadena}");
+        let cinta = &resultado.traza.last().unwrap().cinta;
+        assert_eq!(cinta.contenido_util(), format!("{cadena}#{cadena}"));
+        assert!(
+            cinta
+                .celdas
+                .values()
+                .all(|caracter| "ab#".contains(*caracter))
+        );
+    }
+}

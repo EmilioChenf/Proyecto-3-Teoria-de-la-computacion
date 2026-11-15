@@ -1,0 +1,336 @@
+q_states:
+  q_list: ['inicio', 'separar', 'volver', 'elegir', 'llevar', 'regresar', 'restaurar', 'aceptar']
+  initial: 'inicio'
+  final: 'aceptar'
+alphabet: ['a', 'b']
+tape_alphabet: ['a', 'b', 'A', 'B', '#', null]
+delta:
+  - params:
+      initial_state: 'inicio'
+      mem_cache_value: null
+      tape_input: 'a'
+    output:
+      final_state: 'separar'
+      mem_cache_value: null
+      tape_output: 'a'
+      tape_displacement: R
+  - params:
+      initial_state: 'inicio'
+      mem_cache_value: null
+      tape_input: 'b'
+    output:
+      final_state: 'separar'
+      mem_cache_value: null
+      tape_output: 'b'
+      tape_displacement: R
+  - params:
+      initial_state: 'separar'
+      mem_cache_value: null
+      tape_input: 'a'
+    output:
+      final_state: 'separar'
+      mem_cache_value: null
+      tape_output: 'a'
+      tape_displacement: R
+  - params:
+      initial_state: 'separar'
+      mem_cache_value: null
+      tape_input: 'b'
+    output:
+      final_state: 'separar'
+      mem_cache_value: null
+      tape_output: 'b'
+      tape_displacement: R
+  - params:
+      initial_state: 'separar'
+      mem_cache_value: null
+      tape_input: null
+    output:
+      final_state: 'volver'
+      mem_cache_value: null
+      tape_output: '#'
+      tape_displacement: L
+  - params:
+      initial_state: 'volver'
+      mem_cache_value: null
+      tape_input: 'a'
+    output:
+      final_state: 'volver'
+      mem_cache_value: null
+      tape_output: 'a'
+      tape_displacement: L
+  - params:
+      initial_state: 'volver'
+      mem_cache_value: null
+      tape_input: 'b'
+    output:
+      final_state: 'volver'
+      mem_cache_value: null
+      tape_output: 'b'
+      tape_displacement: L
+  - params:
+      initial_state: 'volver'
+      mem_cache_value: null
+      tape_input: 'A'
+    output:
+      final_state: 'volver'
+      mem_cache_value: null
+      tape_output: 'A'
+      tape_displacement: L
+  - params:
+      initial_state: 'volver'
+      mem_cache_value: null
+      tape_input: 'B'
+    output:
+      final_state: 'volver'
+      mem_cache_value: null
+      tape_output: 'B'
+      tape_displacement: L
+  - params:
+      initial_state: 'volver'
+      mem_cache_value: null
+      tape_input: null
+    output:
+      final_state: 'elegir'
+      mem_cache_value: null
+      tape_output: null
+      tape_displacement: R
+  - params:
+      initial_state: 'elegir'
+      mem_cache_value: null
+      tape_input: 'A'
+    output:
+      final_state: 'elegir'
+      mem_cache_value: null
+      tape_output: 'A'
+      tape_displacement: R
+  - params:
+      initial_state: 'elegir'
+      mem_cache_value: null
+      tape_input: 'B'
+    output:
+      final_state: 'elegir'
+      mem_cache_value: null
+      tape_output: 'B'
+      tape_displacement: R
+  - params:
+      initial_state: 'elegir'
+      mem_cache_value: null
+      tape_input: 'a'
+    output:
+      final_state: 'llevar'
+      mem_cache_value: 'a'
+      tape_output: 'A'
+      tape_displacement: R
+  - params:
+      initial_state: 'elegir'
+      mem_cache_value: null
+      tape_input: 'b'
+    output:
+      final_state: 'llevar'
+      mem_cache_value: 'b'
+      tape_output: 'B'
+      tape_displacement: R
+  - params:
+      initial_state: 'llevar'
+      mem_cache_value: 'a'
+      tape_input: 'a'
+    output:
+      final_state: 'llevar'
+      mem_cache_value: 'a'
+      tape_output: 'a'
+      tape_displacement: R
+  - params:
+      initial_state: 'llevar'
+      mem_cache_value: 'a'
+      tape_input: 'b'
+    output:
+      final_state: 'llevar'
+      mem_cache_value: 'a'
+      tape_output: 'b'
+      tape_displacement: R
+  - params:
+      initial_state: 'llevar'
+      mem_cache_value: 'a'
+      tape_input: 'A'
+    output:
+      final_state: 'llevar'
+      mem_cache_value: 'a'
+      tape_output: 'A'
+      tape_displacement: R
+  - params:
+      initial_state: 'llevar'
+      mem_cache_value: 'a'
+      tape_input: 'B'
+    output:
+      final_state: 'llevar'
+      mem_cache_value: 'a'
+      tape_output: 'B'
+      tape_displacement: R
+  - params:
+      initial_state: 'llevar'
+      mem_cache_value: 'a'
+      tape_input: '#'
+    output:
+      final_state: 'llevar'
+      mem_cache_value: 'a'
+      tape_output: '#'
+      tape_displacement: R
+  - params:
+      initial_state: 'llevar'
+      mem_cache_value: 'a'
+      tape_input: null
+    output:
+      final_state: 'regresar'
+      mem_cache_value: null
+      tape_output: 'a'
+      tape_displacement: L
+  - params:
+      initial_state: 'llevar'
+      mem_cache_value: 'b'
+      tape_input: 'a'
+    output:
+      final_state: 'llevar'
+      mem_cache_value: 'b'
+      tape_output: 'a'
+      tape_displacement: R
+  - params:
+      initial_state: 'llevar'
+      mem_cache_value: 'b'
+      tape_input: 'b'
+    output:
+      final_state: 'llevar'
+      mem_cache_value: 'b'
+      tape_output: 'b'
+      tape_displacement: R
+  - params:
+      initial_state: 'llevar'
+      mem_cache_value: 'b'
+      tape_input: 'A'
+    output:
+      final_state: 'llevar'
+      mem_cache_value: 'b'
+      tape_output: 'A'
+      tape_displacement: R
+  - params:
+      initial_state: 'llevar'
+      mem_cache_value: 'b'
+      tape_input: 'B'
+    output:
+      final_state: 'llevar'
+      mem_cache_value: 'b'
+      tape_output: 'B'
+      tape_displacement: R
+  - params:
+      initial_state: 'llevar'
+      mem_cache_value: 'b'
+      tape_input: '#'
+    output:
+      final_state: 'llevar'
+      mem_cache_value: 'b'
+      tape_output: '#'
+      tape_displacement: R
+  - params:
+      initial_state: 'llevar'
+      mem_cache_value: 'b'
+      tape_input: null
+    output:
+      final_state: 'regresar'
+      mem_cache_value: null
+      tape_output: 'b'
+      tape_displacement: L
+  - params:
+      initial_state: 'regresar'
+      mem_cache_value: null
+      tape_input: 'a'
+    output:
+      final_state: 'regresar'
+      mem_cache_value: null
+      tape_output: 'a'
+      tape_displacement: L
+  - params:
+      initial_state: 'regresar'
+      mem_cache_value: null
+      tape_input: 'b'
+    output:
+      final_state: 'regresar'
+      mem_cache_value: null
+      tape_output: 'b'
+      tape_displacement: L
+  - params:
+      initial_state: 'regresar'
+      mem_cache_value: null
+      tape_input: 'A'
+    output:
+      final_state: 'regresar'
+      mem_cache_value: null
+      tape_output: 'A'
+      tape_displacement: L
+  - params:
+      initial_state: 'regresar'
+      mem_cache_value: null
+      tape_input: 'B'
+    output:
+      final_state: 'regresar'
+      mem_cache_value: null
+      tape_output: 'B'
+      tape_displacement: L
+  - params:
+      initial_state: 'regresar'
+      mem_cache_value: null
+      tape_input: '#'
+    output:
+      final_state: 'regresar'
+      mem_cache_value: null
+      tape_output: '#'
+      tape_displacement: L
+  - params:
+      initial_state: 'regresar'
+      mem_cache_value: null
+      tape_input: null
+    output:
+      final_state: 'elegir'
+      mem_cache_value: null
+      tape_output: null
+      tape_displacement: R
+  - params:
+      initial_state: 'elegir'
+      mem_cache_value: null
+      tape_input: '#'
+    output:
+      final_state: 'restaurar'
+      mem_cache_value: null
+      tape_output: '#'
+      tape_displacement: L
+  - params:
+      initial_state: 'restaurar'
+      mem_cache_value: null
+      tape_input: 'A'
+    output:
+      final_state: 'restaurar'
+      mem_cache_value: null
+      tape_output: 'a'
+      tape_displacement: L
+  - params:
+      initial_state: 'restaurar'
+      mem_cache_value: null
+      tape_input: 'B'
+    output:
+      final_state: 'restaurar'
+      mem_cache_value: null
+      tape_output: 'b'
+      tape_displacement: L
+  - params:
+      initial_state: 'restaurar'
+      mem_cache_value: null
+      tape_input: null
+    output:
+      final_state: 'aceptar'
+      mem_cache_value: null
+      tape_output: null
+      tape_displacement: S
+simulation_strings:
+  - 'aabab'
+  - 'abbaa'
+  - 'babab'
+  - 'bbaab'
