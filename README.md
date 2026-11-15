@@ -2,7 +2,11 @@
 
 Simulador determinista de **una cinta en Rust**, configurable mediante YAML. Incluye cinta extensible en ambas direcciones, un registro finito de memoria auxiliar y descripciones instantáneas completas. El motor ejecuta exclusivamente las transiciones declaradas; no contiene algoritmos específicos para reconocer o copiar cadenas.
 
-**Integrantes:** Brian ([ChenBrian833](https://github.com/ChenBrian833)) y Emilio ([EmilioChenf](https://github.com/EmilioChenf)). El repositorio del proyecto es privado.
+## Video de demostración
+
+https://youtu.be/r-6HZ6iHIXg 
+
+**Integrantes:** Brian ([ChenBrian833](https://github.com/ChenBrian833)) y Emilio ([EmilioChenf](https://github.com/EmilioChenf)). 
 
 ## Requisitos e instalación
 
