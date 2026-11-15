@@ -1,5 +1,6 @@
 //! Esquema YAML y validación del modelo formal.
 use serde::{Deserialize, Deserializer};
+use std::collections::{HashMap, HashSet};
 
 /// Un símbolo es un carácter Unicode o el blanco YAML null.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -91,4 +92,71 @@ pub struct Configuracion {
     pub transiciones: Vec<Transicion>,
     #[serde(rename = "simulation_strings")]
     pub cadenas: Vec<String>,
+}
+#[derive(Debug)]
+pub struct Maquina {
+    pub configuracion: Configuracion,
+    pub tabla: HashMap<Parametros, Salida>,
+}
+impl Maquina {
+    pub fn desde_yaml(texto: &str) -> Result<Self, String> {
+        let configuracion: Configuracion = serde_saphyr::from_str(texto)
+            .map_err(|error| format!("YAML inválido (campos, símbolos o movimientos): {error}"))?;
+        Self::validar(configuracion)
+    }
+    pub fn cargar(ruta: &str) -> Result<Self, String> {
+        let texto = std::fs::read_to_string(ruta)
+            .map_err(|error| format!("No se pudo leer {ruta}: {error}"))?;
+        Self::desde_yaml(&texto)
+    }
+    pub fn validar(configuracion: Configuracion) -> Result<Self, String> {
+        let estados: HashSet<_> = configuracion.estados.lista.iter().collect();
+        if estados.len() != configuracion.estados.lista.len() {
+            return Err("Estados duplicados".into());
+        }
+        for estado in [
+            &configuracion.estados.inicial,
+            &configuracion.estados.final_,
+        ] {
+            if !estados.contains(estado) {
+                return Err(format!("Estado inicial/final no declarado: {estado}"));
+            }
+        }
+        let cinta: HashSet<_> = configuracion.alfabeto_cinta.iter().copied().collect();
+        let entrada: HashSet<_> = configuracion.alfabeto.iter().copied().collect();
+        if cinta.len() != configuracion.alfabeto_cinta.len()
+            || entrada.len() != configuracion.alfabeto.len()
+        {
+            return Err("Símbolos duplicados en alfabeto".into());
+        }
+        if !cinta.contains(&Simbolo(None)) {
+            return Err("Falta el blanco null en el alfabeto de cinta".into());
+        }
+        if entrada.contains(&Simbolo(None)) || !entrada.is_subset(&cinta) {
+            return Err("Alfabeto de entrada incompatible con cinta o contiene blanco".into());
+        }
+        let mut tabla = HashMap::new();
+        for transicion in &configuracion.transiciones {
+            if !estados.contains(&transicion.parametros.estado)
+                || !estados.contains(&transicion.salida.estado)
+            {
+                return Err("Estado de transición no declarado".into());
+            }
+            for simbolo in [transicion.parametros.lectura, transicion.salida.escritura] {
+                if !cinta.contains(&simbolo) {
+                    return Err(format!("Símbolo de cinta desconocido: {simbolo}"));
+                }
+            }
+            if tabla
+                .insert(transicion.parametros.clone(), transicion.salida.clone())
+                .is_some()
+            {
+                return Err("Transición duplicada para estado, memoria y lectura".into());
+            }
+        }
+        Ok(Self {
+            configuracion,
+            tabla,
+        })
+    }
 }
