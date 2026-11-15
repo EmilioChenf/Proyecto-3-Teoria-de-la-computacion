@@ -1,5 +1,6 @@
 use simulador_mt::configuracion::{Maquina, Simbolo};
 use simulador_mt::motor::Terminacion;
+use simulador_mt::presentacion::representar;
 
 const BASE: &str = "q_states: {q_list: [inicio, fin], initial: inicio, final: fin}\nalphabet: ['a']\ntape_alphabet: ['a', null]\ndelta: []\nsimulation_strings: ['a']\n";
 fn regla(
@@ -77,4 +78,22 @@ fn memoria_diferencia_transiciones_y_null_borra_registro() {
     assert_eq!(ultima.cinta.en(-1), Simbolo(None));
     assert_eq!(ultima.cinta.contenido_util(), "aa");
     assert_eq!(ultima.memoria, Simbolo(None));
+    let texto = representar(&resultado);
+    assert_eq!(texto.matches("ID: ").count(), 6);
+    assert_eq!(texto.matches("Aplicada:").count(), 5);
+}
+fn blanco_vacio_yaml_y_unicode() {
+    let texto = BASE
+        .replace("'a'", "'ñ'")
+        .replace("tape_alphabet: ['ñ', null]", "tape_alphabet:\n  - 'ñ'\n  -");
+    let maquina = Maquina::desde_yaml(&texto).unwrap();
+    let resultado = maquina.simular("ñ", 10).unwrap();
+    assert_eq!(resultado.traza[0].cinta.maximo_visitado, 0);
+    assert!(representar(&resultado).contains("longitud: 1 caracteres"));
+    assert!(
+        maquina
+            .configuracion
+            .alfabeto_cinta
+            .contains(&Simbolo(None))
+    );
 }
