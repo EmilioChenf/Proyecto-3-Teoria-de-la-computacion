@@ -97,3 +97,45 @@ fn blanco_vacio_yaml_y_unicode() {
             .contains(&Simbolo(None))
     );
 }
+fn cargar_maquina(nombre: &str) -> Maquina {
+    Maquina::cargar(&format!("maquinas/{nombre}.yaml")).unwrap()
+}
+fn palabras(alfabeto: &[char], longitud: usize) -> Vec<String> {
+    let mut todas = vec![String::new()];
+    let mut nivel = todas.clone();
+    for _ in 0..longitud {
+        nivel = nivel
+            .iter()
+            .flat_map(|prefijo| {
+                alfabeto
+                    .iter()
+                    .map(move |caracter| format!("{prefijo}{caracter}"))
+            })
+            .collect();
+        todas.extend(nivel.clone());
+    }
+    todas
+}
+fn oraculo_reconocedor(cadena: &str) -> bool {
+    let caracteres: Vec<_> = cadena.chars().collect();
+    let longitud = caracteres.len();
+    if longitud == 0 || !longitud.is_multiple_of(3) {
+        return false;
+    }
+    let cantidad = longitud / 3;
+    caracteres[..cantidad].iter().all(|&x| x == 'a')
+        && caracteres[cantidad..2 * cantidad].iter().all(|&x| x == 'b')
+        && caracteres[2 * cantidad..].iter().all(|&x| x == 'c')
+}
+fn reconocedora_exhaustiva_hasta_ocho() {
+    let maquina = cargar_maquina("reconocedora");
+    for cadena in palabras(&['a', 'b', 'c'], 8) {
+        let resultado = maquina.simular(&cadena, 10000).unwrap();
+        assert_ne!(resultado.terminacion, Terminacion::Inconclusa, "{cadena}");
+        assert_eq!(
+            resultado.terminacion == Terminacion::Aceptada,
+            oraculo_reconocedor(&cadena),
+            "{cadena}"
+        );
+    }
+}

@@ -1,0 +1,192 @@
+q_states:
+  q_list: ['inicio', 'elegir', 'buscar_b', 'buscar_c', 'volver', 'verificar', 'aceptar']
+  initial: 'inicio'
+  final: 'aceptar'
+alphabet: ['a', 'b', 'c']
+tape_alphabet: ['a', 'b', 'c', 'X', 'Y', 'Z', null]
+delta:
+  - params:
+      initial_state: 'inicio'
+      mem_cache_value: null
+      tape_input: 'a'
+    output:
+      final_state: 'buscar_b'
+      mem_cache_value: null
+      tape_output: 'X'
+      tape_displacement: R
+  - params:
+      initial_state: 'elegir'
+      mem_cache_value: null
+      tape_input: 'X'
+    output:
+      final_state: 'elegir'
+      mem_cache_value: null
+      tape_output: 'X'
+      tape_displacement: R
+  - params:
+      initial_state: 'elegir'
+      mem_cache_value: null
+      tape_input: 'a'
+    output:
+      final_state: 'buscar_b'
+      mem_cache_value: null
+      tape_output: 'X'
+      tape_displacement: R
+  - params:
+      initial_state: 'elegir'
+      mem_cache_value: null
+      tape_input: 'Y'
+    output:
+      final_state: 'verificar'
+      mem_cache_value: null
+      tape_output: 'Y'
+      tape_displacement: R
+  - params:
+      initial_state: 'buscar_b'
+      mem_cache_value: null
+      tape_input: 'a'
+    output:
+      final_state: 'buscar_b'
+      mem_cache_value: null
+      tape_output: 'a'
+      tape_displacement: R
+  - params:
+      initial_state: 'buscar_b'
+      mem_cache_value: null
+      tape_input: 'Y'
+    output:
+      final_state: 'buscar_b'
+      mem_cache_value: null
+      tape_output: 'Y'
+      tape_displacement: R
+  - params:
+      initial_state: 'buscar_b'
+      mem_cache_value: null
+      tape_input: 'b'
+    output:
+      final_state: 'buscar_c'
+      mem_cache_value: null
+      tape_output: 'Y'
+      tape_displacement: R
+  - params:
+      initial_state: 'buscar_c'
+      mem_cache_value: null
+      tape_input: 'b'
+    output:
+      final_state: 'buscar_c'
+      mem_cache_value: null
+      tape_output: 'b'
+      tape_displacement: R
+  - params:
+      initial_state: 'buscar_c'
+      mem_cache_value: null
+      tape_input: 'Z'
+    output:
+      final_state: 'buscar_c'
+      mem_cache_value: null
+      tape_output: 'Z'
+      tape_displacement: R
+  - params:
+      initial_state: 'buscar_c'
+      mem_cache_value: null
+      tape_input: 'c'
+    output:
+      final_state: 'volver'
+      mem_cache_value: null
+      tape_output: 'Z'
+      tape_displacement: L
+  - params:
+      initial_state: 'volver'
+      mem_cache_value: null
+      tape_input: 'a'
+    output:
+      final_state: 'volver'
+      mem_cache_value: null
+      tape_output: 'a'
+      tape_displacement: L
+  - params:
+      initial_state: 'volver'
+      mem_cache_value: null
+      tape_input: 'b'
+    output:
+      final_state: 'volver'
+      mem_cache_value: null
+      tape_output: 'b'
+      tape_displacement: L
+  - params:
+      initial_state: 'volver'
+      mem_cache_value: null
+      tape_input: 'c'
+    output:
+      final_state: 'volver'
+      mem_cache_value: null
+      tape_output: 'c'
+      tape_displacement: L
+  - params:
+      initial_state: 'volver'
+      mem_cache_value: null
+      tape_input: 'X'
+    output:
+      final_state: 'volver'
+      mem_cache_value: null
+      tape_output: 'X'
+      tape_displacement: L
+  - params:
+      initial_state: 'volver'
+      mem_cache_value: null
+      tape_input: 'Y'
+    output:
+      final_state: 'volver'
+      mem_cache_value: null
+      tape_output: 'Y'
+      tape_displacement: L
+  - params:
+      initial_state: 'volver'
+      mem_cache_value: null
+      tape_input: 'Z'
+    output:
+      final_state: 'volver'
+      mem_cache_value: null
+      tape_output: 'Z'
+      tape_displacement: L
+  - params:
+      initial_state: 'volver'
+      mem_cache_value: null
+      tape_input: null
+    output:
+      final_state: 'elegir'
+      mem_cache_value: null
+      tape_output: null
+      tape_displacement: R
+  - params:
+      initial_state: 'verificar'
+      mem_cache_value: null
+      tape_input: 'Y'
+    output:
+      final_state: 'verificar'
+      mem_cache_value: null
+      tape_output: 'Y'
+      tape_displacement: R
+  - params:
+      initial_state: 'verificar'
+      mem_cache_value: null
+      tape_input: 'Z'
+    output:
+      final_state: 'verificar'
+      mem_cache_value: null
+      tape_output: 'Z'
+      tape_displacement: R
+  - params:
+      initial_state: 'verificar'
+      mem_cache_value: null
+      tape_input: null
+    output:
+      final_state: 'aceptar'
+      mem_cache_value: null
+      tape_output: null
+      tape_displacement: S
+simulation_strings:
+  - 'aabbcc'
+  - 'aaabbbccc'
+  - 'aabbbcc'
+  - 'aaabbccc'
